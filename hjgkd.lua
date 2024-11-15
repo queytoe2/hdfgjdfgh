@@ -1,5 +1,7 @@
+local BodyParts = {"Head","HumanoidRootPart","UpperTorso","LowerTorso","RightUpperArm","LeftUpperArm","RightLowerArm","LeftLowerArm","RightHand","LeftHand","RightUpperLeg","LeftUpperLeg","RightLowerLeg","LeftLowerLeg","RightFoot", "LeftFoot"};
+
 function CheckAllParts(char)
-    for _,v in pairs(Tables.Settings.BodyParts) do
+    for _,v in pairs(BodyParts) do
         if not char:FindFirstChild(v) then
             char:WaitForChild(v,math.huge)
         end
