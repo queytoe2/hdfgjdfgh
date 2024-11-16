@@ -1,4 +1,4 @@
-local Lighting = game:GetService("Lighting")
+        local Lighting = game:GetService("Lighting")
         local RunService = game:GetService("RunService")
         local Terrain = workspace:FindFirstChildOfClass('Terrain')
         Terrain.WaterWaveSize = 0
@@ -42,7 +42,7 @@ local Lighting = game:GetService("Lighting")
         end)
 
         for i,v in pairs(game.Players:GetPlayers()) do
-            if v ~= Players.LocalPlayer then
+            if v ~= game.Players.LocalPlayer then
                 if v.Character then
                     v.Character:Destroy()
                 end
@@ -54,7 +54,7 @@ local Lighting = game:GetService("Lighting")
         end
 
         game.Players.PlayerAdded:Connect(function()
-            if v ~= Players.LocalPlayer then
+            if v ~= game.Players.LocalPlayer then
                 if v.Character then
                     v.Character:Destroy()
                 end
