@@ -55,6 +55,7 @@ local Lighting = game:GetService("Lighting")
         end
 
         game.Players.PlayerAdded:Connect(function(v)
+            task.wait(1)
             if v ~= game.Players.LocalPlayer then
                 if v.Character then
                     v.Character:Destroy()
