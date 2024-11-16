@@ -1,4 +1,4 @@
-        local Lighting = game:GetService("Lighting")
+local Lighting = game:GetService("Lighting")
         local RunService = game:GetService("RunService")
         local Terrain = workspace:FindFirstChildOfClass('Terrain')
         Terrain.WaterWaveSize = 0
@@ -47,6 +47,7 @@
                     v.Character:Destroy()
                 end
                 v.CharacterAdded:Connect(function(char)
+                    task.wait()
                     char:Destroy()
                 end)
                 v:Destroy()
@@ -59,6 +60,7 @@
                     v.Character:Destroy()
                 end
                 v.CharacterAdded:Connect(function(char)
+                    task.wait()
                     char:Destroy()
                 end)
                 v:Destroy()
