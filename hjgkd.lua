@@ -70,7 +70,7 @@ local Lighting = game:GetService("Lighting")
         end
 
         for i,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("BasePart") and Vector3.new(math.floor(v.Size.X), math.floor(v.Size.Y), math.floor(v.Size.Z)) ~= Vector3.new(137, 0, 75) then
+            if not v:IsA("Terrain") and v:IsA("BasePart") and Vector3.new(math.floor(v.Size.X), math.floor(v.Size.Y), math.floor(v.Size.Z)) ~= Vector3.new(137, 0, 75) then
                 v:Destroy()
             end
         end
