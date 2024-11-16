@@ -1,5 +1,4 @@
-local success, err = pcall(function()
-        local Lighting = game:GetService("Lighting")
+local Lighting = game:GetService("Lighting")
         local RunService = game:GetService("RunService")
         local Terrain = workspace:FindFirstChildOfClass('Terrain')
         Terrain.WaterWaveSize = 0
@@ -85,8 +84,3 @@ local success, err = pcall(function()
         game:GetService("RunService").RenderStepped:Connect(function()
             game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("SpawnCharacterEvent"):FireServer("MainSpawn")
         end)
-    end)
-
-    if not success then
-        print(err)
-    end
