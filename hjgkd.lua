@@ -1,4 +1,6 @@
-local Terrain = workspace:FindFirstChildOfClass('Terrain')
+local Lighting = game:GetService("Lighting")
+    local RunService = game:GetService("RunService")
+    local Terrain = workspace:FindFirstChildOfClass('Terrain')
 	Terrain.WaterWaveSize = 0
 	Terrain.WaterWaveSpeed = 0
 	Terrain.WaterReflectance = 0
