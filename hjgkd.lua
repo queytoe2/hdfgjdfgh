@@ -48,7 +48,7 @@ local Lighting = game:GetService("Lighting")
                 end
                 v.CharacterAdded:Connect(function(char)
                     char:Destroy()
-                end
+                end)
                 v:Destroy()
             end
         end
@@ -60,7 +60,7 @@ local Lighting = game:GetService("Lighting")
                 end
                 v.CharacterAdded:Connect(function(char)
                     char:Destroy()
-                end
+                end)
                 v:Destroy()
             end
         end)
