@@ -1,5 +1,32 @@
-local Lighting = game:GetService("Lighting")
+local firstTrial = {"SurfaceGui", "ImageLabel", "BodyVelocity", "TextLabel", "BillboardGui", "ScreenGui", "Frame", "Mesh", "SpecialMesh", "Sound", "Pants", "Shirt", "ParticleEmitter", "Trail", "Explosion", "Decal", "FaceControls", "WrapTarget", "Accessory", 'ForceField', 'Sparkles', 'Smoke', 'Fire'}
+        local secondTrial = {"Tool","Player","Model","Part","UnionOperation","MeshPart","CornerWedgePart","TrussPart","BasePart"}
+        local ancestors = {"CoreGui", "CorePackages", "ReplicatedStorage", "ReplicatedFirst", "StarterGui", "StarterPack", "StarterPlayer", "PlayerGui", "PlayerScripts", "Chat"}
+
+        local function ServiceCheck(child)
+            local success,err = pcall(function()
+                if game:GetService(child.Name) then
+                    return
+                end
+            end)
+            if success then
+                return true
+            else
+                return false
+            end
+        end
+
+        local function AncestorCheck(child)
+            for _,v in pairs(ancestors) do
+                if child:FindFirstAncestor(v) then
+                    return true
+                end
+            end
+            return false
+        end
+
         local RunService = game:GetService("RunService")
+        local Players = game:GetService("Players")
+        local Lighting = game:GetService("Lighting")
         local Terrain = workspace:FindFirstChildOfClass('Terrain')
         Terrain.WaterWaveSize = 0
         Terrain.WaterWaveSpeed = 0
@@ -21,62 +48,43 @@ local Lighting = game:GetService("Lighting")
                 v.BlastRadius = 1
             end
         end
+        task.wait(0.5)
+        for _,child in pairs(game:GetDescendants()) do
+            if not AncestorCheck(child) and not ServiceCheck(child) then
+                if table.find(firstTrial,child.ClassName) then
+                    child:Destroy()
+                elseif table.find(secondTrial,child.ClassName) then
+                    if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) and Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
+                        child:Destroy()
+                    end
+                end
+            end
+        end
         for i,v in pairs(Lighting:GetDescendants()) do
             if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
                 v.Enabled = false
+                v:Destroy()
             end
         end
-        workspace.DescendantAdded:Connect(function(child)
+        game.DescendantAdded:Connect(function(child)
             task.spawn(function()
-                if child:IsA('ForceField') then
-                    RunService.Heartbeat:Wait()
-                    child:Destroy()
-                elseif child:IsA('Sparkles') then
-                    RunService.Heartbeat:Wait()
-                    child:Destroy()
-                elseif child:IsA('Smoke') or child:IsA('Fire') then
-                    RunService.Heartbeat:Wait()
-                    child:Destroy()
-                end
+                pcall(function()
+                    if not AncestorCheck(child) and not ServiceCheck(child) then
+                        if table.find(firstTrial,child.ClassName) then
+                            RunService.Heartbeat:Wait()
+                            child:Destroy()
+                        elseif table.find(secondTrial,child.ClassName) then
+                            if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) and Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
+                                RunService.Heartbeat:Wait()
+                                child:Destroy()
+                            end
+                        end
+                    end
+                end)
             end)
         end)
 
-        for i,v in pairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                if v.Character then
-                    v.Character:Destroy()
-                end
-                v.CharacterAdded:Connect(function(char)
-                    task.wait()
-                    char:Destroy()
-                end)
-                v:Destroy()
-            end
-        end
-
-        game.Players.PlayerAdded:Connect(function(v)
-            task.wait(1)
-            if v ~= game.Players.LocalPlayer then
-                if v.Character then
-                    v.Character:Destroy()
-                end
-                v.CharacterAdded:Connect(function(char)
-                    task.wait()
-                    char:Destroy()
-                end)
-                v:Destroy()
-            end
-        end)
-
-        for i,v in pairs(game.Lighting:GetChildren()) do
-            v:Destroy()
-        end
-
-        for i,v in pairs(workspace:GetDescendants()) do
-            if v.Name ~= "Terrain" and v.Name ~= "Camera" and v:IsA("BasePart") and Vector3.new(math.floor(v.Size.X), math.floor(v.Size.Y), math.floor(v.Size.Z)) ~= Vector3.new(137, 0, 75) and v.Name ~= game.Players.LocalPlayer.Name and not v:FindFirstAncestor(game.Players.LocalPlayer.Name) then
-                v:Destroy()
-            end
-        end
+        task.wait(0.5)
 
         for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
             if v.Name == "Chat" then
