@@ -54,7 +54,7 @@ local firstTrial = {"SurfaceGui", "ImageLabel", "BodyVelocity", "TextLabel", "Bi
                 if table.find(firstTrial,child.ClassName) then
                     child:Destroy()
                 elseif table.find(secondTrial,child.ClassName) then
-                    if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) and Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
+                    if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) then
                         if (not child:IsA("BasePart")) or (child:IsA("BasePart") and not Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75)) then
                             child:Destroy()
                         end
