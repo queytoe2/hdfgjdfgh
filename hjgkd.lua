@@ -55,7 +55,9 @@ local firstTrial = {"SurfaceGui", "ImageLabel", "BodyVelocity", "TextLabel", "Bi
                     child:Destroy()
                 elseif table.find(secondTrial,child.ClassName) then
                     if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) and Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
-                        child:Destroy()
+                        if child:IsA("BasePart") and not Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
+                            child:Destroy()
+                        end
                     end
                 end
             end
@@ -74,9 +76,11 @@ local firstTrial = {"SurfaceGui", "ImageLabel", "BodyVelocity", "TextLabel", "Bi
                             RunService.Heartbeat:Wait()
                             child:Destroy()
                         elseif table.find(secondTrial,child.ClassName) then
-                            if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) and Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
-                                RunService.Heartbeat:Wait()
-                                child:Destroy()
+                            if child.Name ~= Players.LocalPlayer.Name and not child:FindFirstAncestor(Players.LocalPlayer.Name) then
+                                if child:IsA("BasePart") and not Vector3.new(math.floor(child.Size.X), math.floor(child.Size.Y), math.floor(child.Size.Z)) ~= Vector3.new(137, 0, 75) then
+                                    RunService.Heartbeat:Wait()
+                                    child:Destroy()
+                                end
                             end
                         end
                     end
